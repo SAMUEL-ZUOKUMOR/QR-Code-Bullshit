@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-code Generator</title>
+    
+    <!-- Styling -->
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+			background-color: purple;
+			
+        }
+
+        #qr-form {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #qr-code {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #qr-code img {
+            width: 200px;
+            height: 200px;
+        }
+
+        #message {
+            margin-top: 10px;
+            text-align: center;
+            font-style: italic;
+            font-size: 14px;
+            color: #666;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: purple;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <form id="qr-form">
+        <label>Enter the URL of the page you want to generate the QR-code for:</label>
+        <input type="text" name="url" required>
+
+        <button type="submit">Generate QR-code</button>
+    </form>
+
+    <div id="qr-code">
+        <!-- This element will be populated with the QR-code image -->
+    </div>
+
+    <div id="message">
+        <!-- This element will be populated with the response message -->
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let qrForm = document.getElementById("qr-form");
+        let qrCode = document.getElementById("qr-code");
+        let message = document.getElementById("message");
+
+        qrForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            // Get the URL from the form
+            let url = qrForm.querySelector("input[name=url]").value;
+
+            // Generate the QR-code
+            let qrURL = `https://api.qrserver.com/v1/create-qr-code/?data=${url}`;
+
+            // Insert the image in the DOM
+            qrCode.innerHTML = `<img src="${qrURL}" alt="QR-code">`;
+
+            // Show a message
+            message.innerHTML = "QR-code successfully generated!";
+        });
+    </script>
+</body>
+</html>
